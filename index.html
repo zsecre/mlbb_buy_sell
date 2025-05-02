@@ -10,6 +10,8 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@100;200;300;400;500&family=Inter:wght@100;200;300;400;500;600;700&family=Montserrat:wght@100..900&family=Oswald:wght@300;400;500&family=Poppins:wght@100;300;400;500;700&family=Quicksand:wght@300..700&family=Roboto+Condensed:wght@300;400;700&family=Rubik:wght@300..900&display=swap');
 </style>
+<script src="https://unpkg.com/@tonconnect/sdk/dist/tonconnect.umd.js"></script>
+
 <style>
   body{
     background: black;
@@ -31,15 +33,15 @@
     align-items: center;
     padding: 8px;
   }
-  #mid-bar{
-    border: .1px solid white;
+  #home-bar{
+    border: .001px dotted white;
     height: 100%;
     width: 100%;
     display: flex;
     
     flex-direction: column;
     padding: 8px;
-    background: pink;
+    
     box-sizing: border-box;
   }
   #bot-bar{
@@ -50,6 +52,8 @@
     display: flex;
     align-items: center;
     padding: 8px;
+    position: fixed;
+    bottom: 0;
   }
   #profile-pic{
     height: 40px;
@@ -85,12 +89,13 @@
   }
   
   #assets-text{
-    background: gray;
-    padding: 8px;
+    background: #212121;
+    padding:10px 8px;
     border-radius: 3px;
     font-size: 12px;
     color: white;
     font-weight: 600;
+    margin-bottom: 5px;
   }
   #asset{
     display: flex;
@@ -98,12 +103,27 @@
     align-items: center;
     justify-content: start;
     padding: 8px;
-    background: gray;
+    
     border-radius: 5px;
+    color: white;
   }
   #asset img{
     height: 55px;
     width: 55px;
+    margin-right: 8px;
+  }
+  #asset-name-balance{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  #asset-name{
+    font-size: 13.1px;
+    font-weight: 600;
+  }
+  #asset-balance{
+    font-size: 12px;
+    color: #dadada;
   }
 </style>
 <body>
@@ -112,11 +132,12 @@
     <img src="" id="profile-pic">
     
   </div>
-  <div id="mid-bar">
+  <div id="home-bar">
     <div id="wallet-connect-cont">
       <div id="getrealcrypto">
         Get real crypto. Connect wallet. Get Secret token airdrop.
       </div>
+      <p id="address"></p>
       <button id="connect-wallet-btn">Connect wallet</button>
     </div>
     <div id="assets-cont">
@@ -129,7 +150,7 @@
               Secret
             </div>
             <div id="asset-balance">
-              1,382
+              1382 SCRT
             </div>
           </div>
         </div>
@@ -167,6 +188,39 @@
     const photoUrl = initData.user?.photo_url;
     const profilePicContainer = document.getElementById('profile-pic');
     profilePicContainer.src = photoUrl
+     
+     
+     // window.Telegram.WebApp.ready();
+
+    // 2) Create TonConnect modal (uses default bridge)
+    const modal = new TonConnect.UI.TonConnectUI({
+      bridgeUrl: "https://bridge.tonconnect.org/relay"
+    });
+
+    let connector;
+
+    // 3) Connect button handler
+    document.getElementById("connect-wallet-btn")
+      .addEventListener("click", async () => {
+        try {
+          connector = await modal.connect();       // open wallet picker
+          const account = connector.account;       // { address, name, ... }
+          document.getElementById("address").textContent =
+            `Connected: ${account.address}`;
+
+          // 4) Send the address back to your bot if needed:
+          window.Telegram.WebApp.sendData(account.address);
+
+          // 5) (Optional) Listen for status changes
+          connector.onStatusChange((wallet) => {
+            console.log("Wallet status:", wallet);
+          });
+
+        } catch (err) {
+          console.error("Connection failed:", err);
+        }
+      });
+     
      
   </script>
 </body>
