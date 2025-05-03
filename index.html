@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Secret Token Drop</title>
   <link rel="stylesheet" href="style.css">
-</head>
+  <!-- TonConnect SDK -->
+  <script src="https://unpkg.com/@tonconnect/sdk/dist/tonconnect.umd.js"></script>
+  <!-- TonConnect UI -->
+  <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@100;200;300;400;500&family=Inter:wght@100;200;300;400;500;600;700&family=Montserrat:wght@100..900&family=Oswald:wght@300;400;500&family=Poppins:wght@100;300;400;500;700&family=Quicksand:wght@300..700&family=Roboto+Condensed:wght@300,400,700&family=Rubik:wght@300..900&display=swap');
 </style>
@@ -66,15 +69,9 @@
     text-align: center;
     color: white;
   }
-  #connect-wallet-btn{
-    background: white;
+  #ton-connect{
+    background: none;
     border: none;
-    border-radius: 5px;
-    padding: 10px 8px;
-    font-weight: 600;
-    font-size: 12px;
-    margin-top: 10px;
-    cursor: pointer;
   }
   #getrealcrypto{
     font-size: 18px;
@@ -115,21 +112,8 @@
     font-size: 12px;
     color: #dadada;
   }
-  #address{
-    font-size: 12px;
-    color: #dadada;
-    word-break: break-all;
-    max-width: 80%;
-    margin: 10px 0;
-  }
-  .hidden {
-    display: none;
-  }
-  .connected {
-    background: #4CAF50 !important;
-    color: white !important;
-  }
 </style>
+</head>
 <body>
   <!-- Header -->
   <div id="top-bar">
@@ -142,9 +126,9 @@
         Get real crypto. Connect wallet. Get Secret token airdrop.
       </div>
       <p id="address"></p>
-      <button id="connect-wallet-btn">Connect wallet</button>
+      <button id="ton-connect"></button>
     </div>
-    <div id="assets-cont" class="hidden">
+    <div id="assets-cont">
       <div id="assets-text">Assets</div>
       <div id="assets-bar">
         <div id="asset">
@@ -164,80 +148,27 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
- <script>
-  const tg = window.Telegram.WebApp;
-  tg.ready();
-  tg.setBackgroundColor('#000000');
-  tg.setHeaderColor('#000000');
-  tg.expand();
+  <script>
+    // Initialize the Telegram Web App
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.setBackgroundColor('#000000');
+    tg.setHeaderColor('#000000');
+    tg.expand();
 
-  const initData = tg.initDataUnsafe;
-  const profilePic = initData.user?.photo_url;
-  if (profilePic) document.getElementById('profile-pic').src = profilePic;
+    // Set user info (optional)
+    const initData = tg.initDataUnsafe;
+    const profilePic = initData.user?.photo_url;
+    if (profilePic) document.getElementById('profile-pic').src = profilePic;
 
-  // Check if TON features are available
-  const isTonFeatureAvailable = tg.isVersionAtLeast('6.9') && tg.ton;
-  
-  // Connect wallet button
-  const connectWalletBtn = document.getElementById('connect-wallet-btn');
-  const addressElement = document.getElementById('address');
-  const assetsContainer = document.getElementById('assets-cont');
-  
-  // Handle wallet connection
-  connectWalletBtn.addEventListener('click', async function() {
-    if (!isTonFeatureAvailable) {
-      alert('TON features are not available in your Telegram app. Please update to the latest version.');
-      return;
-    }
-    
-    try {
-      // Request wallet address from Telegram
-      const tonConnectResult = await tg.ton.connect();
-      
-      if (tonConnectResult) {
-        // Get wallet address
-        const walletAddress = await tg.ton.getWalletAddress();
-        
-        // Display wallet address
-        if (walletAddress) {
-          addressElement.textContent = `Wallet: ${walletAddress}`;
-          connectWalletBtn.textContent = 'Connected';
-          connectWalletBtn.classList.add('connected');
-          
-          // Show assets
-          assetsContainer.classList.remove('hidden');
-          
-          // You can request token balance here if needed
-          // For demonstration, we're using the static value from HTML
-        }
-      }
-    } catch (error) {
-      console.error('Error connecting to TON wallet:', error);
-      addressElement.textContent = 'Failed to connect wallet. Please try again.';
-    }
-  });
-  
-  // Check if wallet is already connected on page load
-  async function checkWalletConnection() {
-    if (isTonFeatureAvailable) {
-      try {
-        const walletInfo = await tg.ton.getWalletInfo();
-        
-        if (walletInfo && walletInfo.address) {
-          addressElement.textContent = `Wallet: ${walletInfo.address}`;
-          connectWalletBtn.textContent = 'Connected';
-          connectWalletBtn.classList.add('connected');
-          assetsContainer.classList.remove('hidden');
-        }
-      } catch (error) {
-        console.log('Wallet not connected yet');
-      }
-    }
-  }
-  
-  // Run initial check
-  checkWalletConnection();
-</script>
-
+    // Initialize TonConnect UI
+    const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+        manifestUrl: 'https://zsecre.github.io/mlbb_buy_sell/tonconnect-manifest.json',
+        buttonRootId: 'ton-connect'
+    });
+    tonConnectUI.uiOptions = {
+      twaReturnUrl: 'https://t.me/mlbb_buy_sell_bot'
+  };
+  </script>
 </body>
 </html>
