@@ -5,20 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Secret Token Drop</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Optionally add a CSS framework link (e.g., Bootstrap) if desired -->
+  <!-- TonConnect SDK -->
+  <script src="https://unpkg.com/@tonconnect/sdk/dist/tonconnect.umd.js"></script>
 </head>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@100;200;300;400;500&family=Inter:wght@100;200;300;400;500;600;700&family=Montserrat:wght@100..900&family=Oswald:wght@300;400;500&family=Poppins:wght@100;300;400;500;700&family=Quicksand:wght@300..700&family=Roboto+Condensed:wght@300;400;700&family=Rubik:wght@300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@100;200;300;400;500&family=Inter:wght@100;200;300;400;500;600;700&family=Montserrat:wght@100..900&family=Oswald:wght@300;400;500&family=Poppins:wght@100;300;400;500;700&family=Quicksand:wght@300..700&family=Roboto+Condensed:wght@300,400,700&family=Rubik:wght@300..900&display=swap');
 </style>
-
-
 <style>
   body{
     background: black;
     padding: 0;
     margin: 0;
-    box-sizing: border-b]ox;
-    
+    box-sizing: border-box;
   }
   *{
     font-family: Montserrat;
@@ -28,32 +26,31 @@
     border: .1px solid white;
     height: 65px;
     width: 100%;
-    box-sizing: border-box;
     display: flex;
     align-items: center;
     padding: 8px;
+    box-sizing: border-box;
   }
   #home-bar{
     border: .001px dotted white;
-    height: 100%;
+    height: auto;
     width: 100%;
     display: flex;
-    
     flex-direction: column;
     padding: 8px;
-    
     box-sizing: border-box;
   }
   #bot-bar{
     border: .1px solid white;
     height: 65px;
     width: 100%;
-    box-sizing: border-box;
     display: flex;
     align-items: center;
     padding: 8px;
+    box-sizing: border-box;
     position: fixed;
     bottom: 0;
+    background: #000;
   }
   #profile-pic{
     height: 40px;
@@ -61,8 +58,6 @@
     border: .1px solid white;
     border-radius: 50px;
   }
-  
-
   #wallet-connect-cont{
     box-sizing: border-box;
     height: 230px;
@@ -79,15 +74,15 @@
     border-radius: 5px;
     padding: 10px 8px;
     font-weight: 600;
-    font-size: 10px;
-    margin-top: 5px;
+    font-size: 12px;
+    margin-top: 10px;
+    cursor: pointer;
   }
   #getrealcrypto{
     font-size: 18px;
     font-weight: 600;
     width: 80%;
   }
-  
   #assets-text{
     background: #212121;
     padding:10px 8px;
@@ -99,11 +94,8 @@
   }
   #asset{
     display: flex;
-    flex-flow: row;
     align-items: center;
-    justify-content: start;
     padding: 8px;
-    
     border-radius: 5px;
     color: white;
   }
@@ -118,7 +110,7 @@
     gap: 5px;
   }
   #asset-name{
-    font-size: 13.1px;
+    font-size: 13px;
     font-weight: 600;
   }
   #asset-balance{
@@ -129,9 +121,9 @@
 <body>
   <!-- Header -->
   <div id="top-bar">
-    <img src="" id="profile-pic">
-    
+    <img src="" id="profile-pic" alt="User Pic">
   </div>
+
   <div id="home-bar">
     <div id="wallet-connect-cont">
       <div id="getrealcrypto">
@@ -144,82 +136,63 @@
       <div id="assets-text">Assets</div>
       <div id="assets-bar">
         <div id="asset">
-          <img src="secret.png">
+          <img src="secret.png" alt="Secret Token">
           <div id="asset-name-balance">
-            <div id="asset-name">
-              Secret
-            </div>
-            <div id="asset-balance">
-              1382 SCRT
-            </div>
+            <div id="asset-name">Secret</div>
+            <div id="asset-balance">1382 SCRT</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-<div id="bot-bar">
-  
-</div>
-  <!-- script Section -->
+  <div id="bot-bar"></div>
+
+  <!-- Telegram & jQuery -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://unpkg.com/@tonconnect/ui@2.0.5/dist/tonconnect-ui.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- Include Firebase SDK -->
-
-<!-- Your Custom JavaScript Code -->
-<script>
-  
-  
-  
+  <script>
     // Initialize the Telegram Web App
     const tg = window.Telegram.WebApp;
+    tg.ready();
     tg.setBackgroundColor('#000000');
     tg.setHeaderColor('#000000');
     tg.expand();
-    
+
+    // Set user info (optional)
     const initData = tg.initDataUnsafe;
-    const username = 'test'
-    const userId = '12345'
-   // const userId =   initData.user?.id;
-   // const username =  initData.user?.first_name;
+    const profilePic = initData.user?.photo_url;
+    if (profilePic) document.getElementById('profile-pic').src = profilePic;
 
-    // Display profile picture
-    const photoUrl = initData.user?.photo_url;
-    const profilePicContainer = document.getElementById('profile-pic');
-    profilePicContainer.src = photoUrl
-     
-  document.addEventListener('DOMContentLoaded', () => {
-      if (typeof TONConnectUI === 'undefined') {
-        console.error('TONConnectUI is not loaded.');
-        return;
-      }
-
-      const tonConnectUI = new TONConnectUI({
-        manifestUrl: 'https://zsecre.github.io/mlbb_buy_sell/tonconnect-manifest.json',
-        actionsConfiguration: {
-          twaReturnUrl: 'https://t.me/mlbb_buy_sell_bot?startapp' // Your bot’s link
-        }
-      });
-
-      document.getElementById('connect-wallet-btn').addEventListener('click', async () => {
-        try {
-          await tonConnectUI.connectWallet();
-          alert('Wallet connected!');
-          console.log('Connected wallet:', tonConnectUI.wallet);
-        } catch (error) {
-          console.error('Connection failed:', error);
-        }
-      });
-
-      tonConnectUI.onModalStateChange((state) => {
-        if (state.status === 'opened' && state.connectUrl) {
-          Telegram.WebApp.openLink(state.connectUrl);
-        }
-      });
+    // Initialize TonConnect
+    const modal = new TonConnect.UI.TonConnectUI({
+      bridgeUrl: 'https://bridge.tonconnect.org/relay'
     });
-     
+    let connector;
+
+    // Connect wallet on button click
+    document.getElementById('connect-wallet-btn').addEventListener('click', async () => {
+      try {
+        connector = await modal.connect();
+        const address = connector.account.address;
+        document.getElementById('address').textContent = `Connected: ${address}`;
+        // Send address back to Telegram bot
+        tg.sendData(address);
+
+        // Listen for wallet status changes
+        connector.onStatusChange((wallet) => {
+          if (wallet) {
+            document.getElementById('address').textContent = `Connected: ${wallet.address}`;
+          } else {
+            document.getElementById('address').textContent = '';
+          }
+        });
+      } catch (error) {
+        console.error('Wallet connection failed:', error);
+        alert('Connection failed, please try again.');
+      }
+    });
   </script>
 </body>
 </html>
