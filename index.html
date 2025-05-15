@@ -9,9 +9,11 @@
   <script src="https://unpkg.com/@tonconnect/sdk/dist/tonconnect.umd.js"></script>
   <!-- TonConnect UI -->
   <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@100;200;300;400;500&family=Inter:wght@100;200;300;400;500;600;700&family=Montserrat:wght@100..900&family=Oswald:wght@300;400;500&family=Poppins:wght@100;300;400;500;700&family=Quicksand:wght@300..700&family=Roboto+Condensed:wght@300,400,700&family=Rubik:wght@300..900&display=swap');
-</style>
+  <script src="https://kit.fontawesome.com/caf9999568.js" crossorigin="anonymous"></script>
+  
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@100;200;300;400;500&family=Inter:wght@100;200;300;400;500;600;700&family=Montserrat:wght@100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Oswald:wght@300;400;500&family=Outfit:wght@100..900&family=Poppins:wght@100;300;400;500;700&family=Quicksand:wght@300..700&family=Roboto+Condensed:wght@300;400;700&family=Rubik:wght@300..900&display=swap" rel="stylesheet">
 <style>
   body{
     background: black;
@@ -20,38 +22,105 @@
     box-sizing: border-box;
   }
   *{
-    font-family: Montserrat;
+    font-family: Albert Sans;
     font-weight: 500;
+    color: white;
+  }
+  #join-cont{
+    position: absolute;
+    background: black;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: 4;
+  }
+  #welcome-msg{
+    padding: 0 30px;
+    text-align: center;
+    height: 50%;
+    display: flex;
+    align-items: center;
+  }
+  #join-btn{
+    padding: 14px 27px;
+    background: #00a6fd;
+    border-radius: 3px;
+    font-size: 16px;
+    border: none;
+    margin-bottom: 8px;
+    transition: .2s;
+  }
+  #join-btn:hover{
+    opacity: .4;
+    color: white;
   }
   #top-bar{
-    border: .1px solid white;
+    border-bottom: .01px solid #0909094c;
     height: 65px;
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 8px;
+    padding: 0 15px;
     box-sizing: border-box;
   }
   #home-bar{
-    border: .001px dotted white;
     height: auto;
     width: 100%;
-    display: flex;
+    
     flex-direction: column;
-    padding: 8px;
+    padding: 8px 10px;
     box-sizing: border-box;
   }
   #bot-bar{
-    border: .1px solid white;
+    border-top: .01px solid #0909094c;
     height: 65px;
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 8px;
+    padding: 0 12px;
     box-sizing: border-box;
     position: fixed;
     bottom: 0;
-    background: #000;
+    justify-content: space-around;
+    color: #363636;
+    background: #0000008e;
+    backdrop-filter: blur(2px);
+  }
+  .nav-btn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 9px;
+    font-weight: 400;
+    color: #363636ff;
+    transition: .3s;
+  }
+  .nav-btn.active{
+    color: white;
+  }
+  .nav-btn i {
+    transition: transform 0.2s;
+    color: #363636ff;
+  }
+  .nav-btn.active i {
+    transform: scale(1.2);
+    color: white;
+  }
+  .content-cont {
+    display: none;
+  }
+  .content-cont.active {
+    display: flex;
+  }
+  #bot-bar i{
+    font-size: 17px;
   }
   #profile-pic{
     height: 40px;
@@ -59,6 +128,8 @@
     border: .1px solid white;
     border-radius: 50px;
   }
+  
+  /*Wallet Connect*/
   #wallet-connect-cont{
     box-sizing: border-box;
     height: 230px;
@@ -68,6 +139,9 @@
     flex-direction: column;
     text-align: center;
     color: white;
+    background-image: url('spark.png');
+    background-position: center;
+    background-size: cover;
   }
   #ton-connect{
     background: none;
@@ -86,18 +160,44 @@
     color: white;
     font-weight: 600;
     margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  #energey-cont{
+    font-size: 14px;
+    padding:10px 8px;
+    text-align: end;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 2px;
+  }
+  #pickaxe-icon{
+    height: 22px;
+    height: 22px;
+    filter: invert(1);
+  }
+  #assets-bar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
   }
   #asset{
     display: flex;
     align-items: center;
-    padding: 8px;
+    
     border-radius: 5px;
     color: white;
   }
   #asset img{
-    height: 55px;
-    width: 55px;
+    height: 47px;
+    width: 47px;
     margin-right: 8px;
+    object-fit: cover;
+    border-radius: 50px;
   }
   #asset-name-balance{
     display: flex;
@@ -105,13 +205,421 @@
     gap: 5px;
   }
   #asset-name{
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 600;
   }
   #asset-balance{
     font-size: 12px;
-    color: #dadada;
+    color: #bababa;
+    font-weight: 400;
+    transition: 1.5s;
   }
+  #withdraw-btn{
+    border: 1px solid #2e2e2e;
+    font-size: 11px;
+    padding: 12px;
+    background: #1c1c1c;
+    color: gray;
+    border-radius: 2px;
+  }
+  #loading-cont{
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 5;
+  }
+  #loading-cont img{
+    height: 95px;
+    width: 95px;
+    animation: spin 3s;
+    animation-timing-function:ease-out
+    animation-fill-mode: forwards;
+      filter: invert(0%);
+  }
+  @keyframes spin { 
+    0%{
+      filter: invert(100%);
+    }
+    100% { 
+        -webkit-transform: rotate(-10800deg); 
+        transform:rotate(-10800deg); 
+       filter: invert(0%);
+    } 
+}
+  
+  
+  /*START CLAIM STYLE*/
+  #connect-tostart-btn-cont{
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    padding: 8px;
+  }
+  #connect-tostart-btn{
+    background: gray;
+    padding: 13px 14px;
+    border: none;
+    font-size: 13px;
+    border-radius: 40px;
+    transition: .3s;
+  }
+  #start-claim-cont{
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    padding: 8px;
+  }
+  #claim-timer-cont{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+  }
+  #claim-btn-cont{
+    display: none;
+    flex-direction: row;
+    gap: 12px;
+  }
+  #mining-text-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+  }
+  #mining-text-img img{
+    height: 30px;
+  }
+  #start-btn{
+    background: gray;
+    padding: 13px 14px;
+    border: none;
+    font-size: 13px;
+    border-radius: 40px;
+    transition: .3s;
+  }
+  #start-btn:active, #connect-tostart-btn:active{
+    opacity: .5;
+    color: white;
+  }
+  #timer{
+    font-size: 13px;
+    background: #767675;
+    padding: 13px 14px;
+    font-size: 13px;
+    border-radius: 40px;
+    color: white;
+    transition: .3s;
+    font-weight: 500;
+    border: 2px solid #5d5d5d;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+  #claim-timer{
+    
+  }
+  #claim-btn, #claim-btn-2x{
+    background: #68f700;
+    padding: 13px 15px;
+    font-size: 13px;
+    border-radius: 40px;
+    color: black;
+    transition: .3s;
+    font-weight: 600;
+    border: 2px solid #56cb00;
+  }
+  #claim-btn-2x i{
+    color: black;
+  }
+  #claim-btn:active, #claim-btn-2x:active{
+    opacity: .5;
+    color: white;
+  }
+  
+  
+  #popup-cont{
+    position: absolute;
+    top: -44px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    transition: .3s;
+  }
+  #popup{
+    background: rgb(128,128,128 .5);
+    backdrop-filter: blur(2px);
+    padding: 11px 20px;
+    font-size: 10px;
+    border-radius: 5px;
+    transition: .4s;
+    border: .01px solid #00000023;
+  }
+  
+  #mining-speed-reward-cont{
+    position: absolute;
+    top: 0;
+    background: rgb(72,72,91, .2);
+      backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    scale: .1;
+    transition: .5s;
+  }
+  #mining-speed-reward-box{
+    text-align: center;
+    width: 82%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 12px;
+    background: #1e1e1e;
+    padding: 40px 20px;
+    border-radius: 2px;
+  }
+  #speed-reward-cont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 7px;
+  }
+  #speed-reward-box{
+    text-align: center;
+    width: 55px;
+    padding: 23px 0;
+    background: #cef9ff;
+    color: black;
+    font-size: 17px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #speed-reward-box img{
+    height: 25px;
+  }
+  #claim-speed-btn{
+    width: 80%;
+    padding: 10px;
+    border: none;
+    font-size: 14px;
+    border-radius: 4px;
+    background: #68f700;
+    transition: .3s;
+  }
+  #claim-speed-btn:hover {
+    background: #3d9000;
+  }
+  
+  
+  #raffle-cont{
+    flex-direction: column;
+    box-sizing: border-box;
+    margin-bottom: 68px;
+  }
+  #ad-revenue-text{
+    box-sizing: border-box;
+    width: 100%;
+    height: 195px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 20px;
+    padding: 0 40px;
+    flex-direction: column;
+    font-weight: 600;
+    text-align: center;
+    
+  }
+  #raffle-text{
+    font-weight: 600;
+  }
+  #ad-revenue-text img{
+    height: 19px;
+    display: inline;
+  }
+  #ad-revenue{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 10px;
+  }
+  #see-prev-winners{
+    font-size: 12px;
+    padding: 3px 6px;
+    background: rgba(0,0,0,0.2);
+    text-decoration: underline;
+    margin-top: 35px;
+  }
+  #prev-winners-cont{
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    text-align: center;
+    padding: 10px 35px 5px;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    background: #0000002e;
+    flex-direction: column;
+  }
+  #prev-ad-rev{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    background: #ffffff6c;
+    
+  }
+  #prev-winners{
+    display: flex;
+    background: #00000036;
+    flex-direction: column;
+    min-height: 300px;
+    width: 100%;
+    padding: 8px 20px;
+    box-sizing: border-box;
+    gap: 3px;
+  }
+  #prev-winners-bar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    padding: 6px 8px;
+    background: #ffffff41;
+    border-radius: 3px;
+  }
+  #prev-winners-bar div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3px;
+    font-weight: 600;
+
+  }
+  #prev-winners-bar img{
+    height: 19px;
+
+  }
+  #friends-cont{
+    flex-direction: column;
+    padding: 10px;
+    justify-content: space-between;
+    height: 100%;
+    box-sizing: border-box;
+  }
+  #friends-text{
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+  }
+  #friends-list-cont{
+    box-sizing: border-box;
+    height: 440px;
+    background: #111111;
+    margin: 10px;
+  }
+  #invite-btn{
+    width: 85%;
+    padding: 12px 0;
+    color: black;
+    font-size: 17px;
+    align-self: center;
+    background: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    transition: .3s;
+  }
+  #invite-btn:hover{
+    background: #7b7b7b;
+    
+  }
+  #share-cont{
+    height: 100%;
+    z-index: 19;
+    position: absolute;
+    bottom: -105%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background: #00000057;
+    transition: .3s;
+  }
+  #share-bg{
+    height: 25%;
+    width: 100%;
+    background: ;
+  }
+  #copy-send-cont{
+    background: #1a1a1a;
+    height: 75%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px 10px 0 0;
+  }
+  #copy-send-btn-cont{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    gap: 17px;
+  }
+  #copy-btn, #send-btn{
+    width: 90%;
+    padding: 12px;
+    background: #353535;
+    border: none;
+    font-size: 14px;
+    border-radius: 4px;
+    transition: .3s;
+  }
+  #copy-btn:hover, #send-btn:hover{
+    background: black;
+  }
+  #invite-text{
+    width: 100%;
+    height: 65px;
+    border-bottom: .1px solid gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
 </style>
 </head>
 <body>
@@ -120,7 +628,7 @@
     <img src="" id="profile-pic" alt="User Pic">
   </div>
 
-  <div id="home-bar">
+  <div id="home-bar" class="content-cont">
     <div id="wallet-connect-cont">
       <div id="getrealcrypto">
         Get real crypto. Connect wallet. Get Secret token airdrop.
@@ -129,24 +637,175 @@
       <button id="ton-connect"></button>
     </div>
     <div id="assets-cont">
-      <div id="assets-text">Assets</div>
+      <div id="assets-text">
+        Assets
+      </div>
+      <div id="energey-cont">
+        <img src="pickaxe-speed.png">
+        0/h
+        </div>
       <div id="assets-bar">
         <div id="asset">
-          <img src="secret.png" alt="Secret Token">
+          <img src="token.png" alt="Secret Token">
           <div id="asset-name-balance">
             <div id="asset-name">Secret</div>
-            <div id="asset-balance">1382 SCRT</div>
+            <div id="asset-balance">0 SCRT</div>
           </div>
         </div>
+        <button id="withdraw-btn">Withdraw</button>
+      </div>
+    </div>
+      <div id="connect-tostart-btn-cont">
+        <button id="connect-tostart-btn">
+          Start mining
+        </button>
+      </div>
+      <div id="start-claim-cont">
+        <div id="start-btn-cont">
+          <button id="start-btn">Start mining</button>
+        </div>
+        <div id="claim-timer-cont">
+          <div id="mining-text-img">
+            Mining is active: <img src="pickaxe.gif" id="pickaxe-gif">
+          </div>
+          <div id="timer">
+          <i class="fa-solid fa-clock fa-shake"></i>
+          
+          <div id="claim-timer">
+            00:00:00
+          </div>
+          </div>
+        </div>
+        <div id="claim-btn-cont">
+          <button id="claim-btn">Claim SCRT 1X</button>
+          <button id="claim-btn-2x">2X <i class="fa-solid fa-rectangle-ad"></i></button>
+        </div>
+      </div>
+  </div>
+  
+  <div id="raffle-cont" class="content-cont">
+    <div id="ad-revenue-text">
+      <div id="raffle-text">
+      This week's ad revenue (May 12 - May 18 2025):
+      </div>
+      <div id="ad-revenue">
+        0 <img src="https://ton.org/icons/custom/ton_logo.svg"> TON
+      </div>
+      <div id="" style="font-size: 12px; margin-top: 5px">
+        Next draw May 18 2025
+      </div>
+      <div id="see-prev-winners"></div>
+    </div>
+    <div id="prev-winners-cont">
+      <div id="prev-ad-rev">(</div>
+      <div id="prev-winners">
+        
       </div>
     </div>
   </div>
+  
+  <div id="friends-cont" class="content-cont">
+    <div id="friends-text">
+      Friends
+    </div>
+    <div id="friends-list-cont">
+      
+    </div>
+    <button id="invite-btn">Invite friends</button>
+  </div>
+  
+  <div class="content-cont">
+    airdrop
+  </div>
 
-  <div id="bot-bar"></div>
-
+  <div id="bot-bar">
+    <div id="home-btn" class="nav-btn" data-active-icon="fa-solid fa-house">
+      <i class="fa-solid fa-house"></i>
+      Home
+    </div>
+    <div id="raffle-btn" class="nav-btn" data-active-icon="fa-solid
+    fa-ticket-simple">
+      
+      <i class="fa-solid fa-ticket-simple"></i>
+      Raffle
+    </div>
+    <div id="friends-btn" class="nav-btn" data-active-icon="fa-solid
+    fa-user-group">
+      <i class="fa-solid fa-user-group"></i>
+      Friends
+    </div>
+    <div id="airdrop-btn" class="nav-btn" data-active-icon="fa-solid
+    fa-parachute-box">
+      <i class="fa-solid fa-parachute-box"></i>
+      Airdrop
+    </div>
+  </div>
+  
+  
+  <div id="loading-cont">
+    <img src="logo.png">
+    Loading...
+  </div>
+  <div id="popup-cont">
+    <div id="popup">Pop-up</div>
+  </div>
+  <div id="join-cont">
+    <div id="welcome-msg">
+    Oh! It looks like you found something in secret. Welcome to Secret Token
+    airdrop. Join secretly and surprise everyone.
+    </div>
+    <button id="join-btn">
+      Continue
+    </button>
+  </div>
+  
+  
+  <div id="mining-speed-reward-cont">
+    <div id="mining-speed-reward-box">
+      <div id="speed-text">
+        Here's your free mining speed per hour. Connect your wallet and you can
+        start mining Secret Token.
+      </div>
+      <div id="speed-reward-cont">
+      <div id="speed-reward-box">
+        <img src="pickaxe-speed.png">+10
+      </div>
+      <div id="speed-reward-box" class="reward-from-friend">
+        <img src="pickaxe-speed.png">+5
+      </div>
+      </div>
+      <button id="claim-speed-btn">Claim</button>
+    </div>
+  </div>
+  
+  <div id="share-cont">
+    <div id="share-bg">
+      
+    </div>
+    <div id="copy-send-cont">
+      <div id="invite-text">
+        Invite friends
+      </div>
+      <div id="copy-send-btn-cont">
+        <button id="send-btn">
+          Send
+        </button>
+        <button id="copy-btn">
+          Copy link
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  
   <!-- Telegram & jQuery -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <!-- Firestore -->
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+<script
+src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
 
   <script>
     // Initialize the Telegram Web App
@@ -155,11 +814,30 @@
     tg.setBackgroundColor('#000000');
     tg.setHeaderColor('#000000');
     tg.expand();
+    
+    const initData = tg.initDataUnsafe;
+    const username = 'test'
+    const userId = '12345'
+   // const userId =   initData.user?.id;
+   // const username =  initData.user?.first_name;
 
     // Set user info (optional)
-    const initData = tg.initDataUnsafe;
     const profilePic = initData.user?.photo_url;
     if (profilePic) document.getElementById('profile-pic').src = profilePic;
+    
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCQEIPDfxOe48us49Kqu9GV8R1MH-D-A34",
+  authDomain: "secret-token-drop.firebaseapp.com",
+  projectId: "secret-token-drop",
+  storageBucket: "secret-token-drop.firebasestorage.app",
+  messagingSenderId: "178521956757",
+  appId: "1:178521956757:web:30c34a6d8d2bb8b2c3569c",
+  measurementId: "G-PN7BHX0L1R"
+};
+
+const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
     // Initialize TonConnect UI
     const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
@@ -169,6 +847,590 @@
     tonConnectUI.uiOptions = {
       twaReturnUrl: 'https://t.me/mlbb_buy_sell_bot'
   };
+  // After initializing tonConnectUI, add this listener:
+tonConnectUI.onStatusChange(walletInfo => {
+  const isConnected = !!walletInfo;
+  updateBackgroundColor(isConnected);
+});
+
+// Function to update background color based on connection status
+let connected = false
+function updateBackgroundColor(isConnected) {
+  if (isConnected) {
+    document.getElementById("start-btn").style.background = "#68f700"
+    document.getElementById("start-btn").style.color = "black"
+    document.getElementById("start-btn").style.border = "2px solid #56cb00"
+    document.getElementById("start-claim-cont").style.display = "flex"
+    document.getElementById('connect-tostart-btn-cont').style.display = "none"
+    // document.getElementById("start-btn").disabled = "true"
+  } else {
+
+    document.getElementById('start-claim-cont').style.display = "none"
+    document.getElementById('connect-tostart-btn-cont').style.display = "flex"
+ //   document.getElementById("start-btn").disabled = "false"
+  }
+}
+updateBackgroundColor()
+
+document.getElementById('withdraw-btn').addEventListener('click', async () => {
+
+    document.getElementById("popup-cont").style.top = "60px"
+    document.getElementById("popup").style.background = "rgba(62,97,136,0.3)"
+    setTimeout( async function() {
+    document.getElementById("popup").style.background = "gray"
+      document.getElementById("popup-cont").style.top = "-44px"
+    }, 2000);
+    document.getElementById("popup").textContent = "Not yet available!"
+  
+})
+
+//START BUTTON CLICK 
+document.getElementById('connect-tostart-btn').addEventListener('click', async () => {
+  document.getElementById("popup-cont").style.top = "60px"
+    document.getElementById("popup").style.background = "rgba(62,97,136,0.3)"
+    setTimeout( async function() {
+    document.getElementById("popup").style.background = "gray"
+      document.getElementById("popup-cont").style.top = "-44px"
+    }, 2000);
+    document.getElementById("popup").textContent = "Connect wallet first!"
+})
+
+document.getElementById('start-btn').addEventListener('click', async () => {
+
+    try {
+        // Get the current time as a Firestore Timestamp
+        const startTime = Date.now();
+        // Calculate the end time 5 hours later in milliseconds
+        const endTime = startTime + (5 * 60 * 60 * 1000);
+
+        // Update the Firestore document for the user
+        setTimeout( async function() {
+        await db.collection('users').doc(userId.toString()).update({
+            end_mining_time: endTime
+        });
+            }, 2000);
+    } catch (error) {
+        console.error('Error starting mining:', error);
+    }
+  
+})
+
+// Check initial connection status when page loads
+document.addEventListener('DOMContentLoaded', () => {
+  // Check if already connected
+  const walletInfo = tonConnectUI.getWalletInfo();
+  updateBackgroundColor(!!walletInfo);
+  
+  // Rest of your existing DOMContentLoaded code...
+});
+
+  //LOADING cont
+  setTimeout( async function() {
+    document.getElementById("loading-cont").style.display = "none"
+  }, 3000);
+  
+  // nav button bottom
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const navBtns = document.querySelectorAll('.nav-btn');
+    const contents = document.querySelectorAll('.content-cont');
+
+    // Store each button's default icon class in data-icon
+    navBtns.forEach(btn => {
+      const iconEl = btn.querySelector('i');
+      btn.dataset.icon = iconEl.className; 
+    });
+
+    // Activate first tab by default
+    if (navBtns[0]) {
+      navBtns[0].classList.add('active');
+      // swap its icon
+      navBtns[0].querySelector('i').className = navBtns[0].dataset.activeIcon;
+    }
+    if (contents[0]) contents[0].classList.add('active');
+
+    navBtns.forEach((btn, idx) => {
+      btn.addEventListener('click', () => {
+        // 1) deactivate all buttons & panels, and restore all icons
+        navBtns.forEach(b => {
+          b.classList.remove('active');
+          b.querySelector('i').className = b.dataset.icon;
+        });
+        contents.forEach(c => c.classList.remove('active'));
+
+        // 2) activate this one & swap its icon
+        btn.classList.add('active');
+        btn.querySelector('i').className = btn.dataset.activeIcon;
+        if (contents[idx]) contents[idx].classList.add('active');
+      });
+    });
+  });
+  
+  
+  //JOIN BUTTON CODE
+  function generateReferralCode() {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        return Array.from({length: 5}, () => characters[Math.floor(Math.random() * characters.length)]).join('');
+    }
+  db.collection("users").where("username", "!=", null).get().then((snapshot) => {
+ const numberOfUser = snapshot.size
+ const dateJoined = new Date()
+ const startParam = tg.initDataUnsafe.start_param;
+    document.getElementById('join-btn').addEventListener('click', async () => {
+        if (!userId) {
+            alert('User ID not available. Please try again.');
+            return;
+        }
+        if(startParam == undefined){
+          const userData = {
+            user_id: userId,
+            username: username,
+            mining_speed_reward: null,
+            secret_token: 0,
+            date_joined: dateJoined,
+            stph: 0,
+            end_mining_time: 0,
+            referrer_code: null,
+            join_rewards: null,
+            referral_code: generateReferralCode(),
+            join_number: numberOfUser + 1,
+        };
+
+        try {
+            await db.collection('users').doc(userId.toString()).set(userData);
+       //     document.getElementById('join-holder').style.display = 'none';
+            
+        } catch (error) {
+            console.error('Firebase error:', error);
+            alert('Error saving data: ' + error.message + startParam);
+        }
+        }else{
+        const userData = {
+            user_id: userId,
+            username: username,
+            mining_speed_reward: null,
+            secret_token: 0,
+            date_joined: dateJoined,
+            stph: 0,
+            end_mining_time: 0,
+            referrer_code: startParam,
+            join_rewards: null,
+            referral_code: generateReferralCode(),
+            join_number: numberOfUser + 1,
+        };
+
+        try {
+            await db.collection('users').doc(userId.toString()).set(userData);
+       //     document.getElementById('join-holder').style.display = 'none';
+            
+        } catch (error) {
+            console.error('Firebase error:', error);
+            alert('Error saving data: ' + error.message + startParam);
+        }
+        }
+    });
+    });
+    
+     // JOIN BUTTON END CODE
+ const joinCont = document.getElementById('join-cont');
+// early-exit if we don’t even have an ID
+if (!userId) {
+  joinCont.style.display = 'flex';
+} else {
+  const docRef = db.collection('users').doc(userId.toString());
+
+  // listen for real-time updates
+  const unsubscribe = docRef.onSnapshot(
+    (doc) => {
+      if (doc.exists) {
+        setTimeout( async function() {
+        joinCont.style.display = 'none';
+        showClaimSpeed()
+  }, 2000);
+      } else {
+        joinCont.style.display = 'flex';
+      }
+      // If you had a loading screen, hide it here:
+      // loadingScreen.style.display = 'none';
+    },
+    (error) => {
+      console.error('Error listening to user doc:', error);
+      // fallback to showing join button on error
+      joinCont.style.display = 'flex';
+      // loadingScreen.style.display = 'none';
+    }
+  );
+
+  // If you ever need to stop listening:
+  // unsubscribe();
+}
+function showClaimSpeed(){
+  document.getElementById("mining-speed-reward-cont").style.scale = "1"
+}
+
+//referral code detection
+
+    //FETCH USER DATA
+    async function fetchAndDisplayUserData() {
+      try {
+          //  const vctrmPriceGet = await db.collection('victoreum').doc("vctrm").get();
+        //  const vctrmPrice = vctrmPriceGet.data()
+            const userRef = db.collection('users').doc(userId.toString());
+            userRef.onSnapshot((doc) => {
+              if (doc.exists) {
+                
+                //Display data
+                document.getElementById("energey-cont").innerHTML = `<img
+                src="pickaxe-speed.png" id="pickaxe-icon">
+        ` + doc.data().stph + "/h"
+                document.getElementById("asset-balance").textContent =
+                doc.data().secret_token + " SCRT"
+                
+                
+                
+                if(doc.data().referrer_code !== null){
+                  document.getElementById('speed-text').textContent = `Claim your free mining speed per hour and your friend's gift. Connect your wallet and you can start mining Secret Token.`;
+                  document.getElementsByClassName('reward-from-friend')[0].style.display =
+                  "default";
+                  setTimeout(async () => {
+                    showClaimSpeed()
+                  }, 6000);
+                }else{
+                  document.getElementById('speed-text').textContent = `Claim your free mining speed per hour. Connect your wallet and you can start mining Secret Token.`;
+                  document.getElementsByClassName('reward-from-friend')[0].style.display =
+                  "none";
+                }
+                if(doc.data().mining_speed_reward == "claimed" ){
+                  document.getElementById('mining-speed-reward-cont').style.display = "none";
+                }
+                
+                //START CLAIM claim-timer
+                const now = Date.now();
+                if( doc.data().end_mining_time == 0){
+              document.getElementById('start-btn-cont').style.display = "flex"
+              document.getElementById('claim-timer-cont').style.display = "none"
+              document.getElementById('claim-btn-cont').style.display = "none"
+            }
+                if(now < doc.data().end_mining_time ){
+              document.getElementById('claim-timer-cont').style.display = "flex"
+              document.getElementById('claim-btn-cont').style.display = "none"
+              document.getElementById('start-btn-cont').style.display = "none"
+            }
+                if (now >= doc.data().end_mining_time && doc.data().end_mining_time != 0) {
+                  document.getElementById('claim-btn-cont').style.display = 'flex';
+                   document.getElementById('claim-timer-cont').style.display = "none";
+                  document.getElementById('start-btn-cont').style.display = "none"
+                }
+                
+              } else {
+            console.log("No such document!");
+          }
+        }, (error) => {
+              console.log("Error getting document:", error);
+          });
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+        
+        
+        try{
+          const userRaffle = db.collection('raffle').doc("draws");
+          userRaffle.onSnapshot((doc) => {
+              if (doc.exists) {
+             document.getElementById("ad-revenue").innerHTML =
+             `${doc.data().current_adrev} <img
+             src="https://ton.org/icons/custom/ton_logo.svg"> TON`
+             document.getElementById("raffle-text").textContent = `This week's
+             ad revenue (${doc.data().current_date_1} - ${doc.data().current_date_7}):`
+                document.getElementById("see-prev-winners").textContent =
+                `Previous 100 winners (${doc.data().prev_date_1} -
+                ${doc.data().prev_date_7})`
+                document.getElementById("prev-ad-rev").innerHTML = `Prize pool:
+        ${doc.data().prev_adrev} <img src="https://ton.org/icons/custom/ton_logo.svg" style="height:
+        17px;"> TON`
+              }
+              else {
+            console.log("No such document!");
+          }
+        }, (error) => {
+              console.log("Error getting document:", error);
+          });
+          
+        }catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    }
+    setInterval(fetchAndDisplayUserData, 1000);
+    fetchAndDisplayUserData()
+    // FETCH USER DATA EENDDD!!
+    
+    
+    //Claim mining speed
+document.getElementById('claim-speed-btn')
+  .addEventListener('click', async () => {
+    if (!userId) {
+      console.error('No userId available');
+      return;
+    }
+
+    const userRef = db.collection('users').doc(userId.toString());
+
+    try {
+      // 1) Fetch the document once
+      const doc = await userRef.get();
+
+      if (!doc.exists) {
+        console.log('No such document!');
+        return;
+      }
+
+      const data = doc.data();
+      const hasReferrer = data.referrer_code != null;
+
+      if (hasReferrer) {
+        // 2) Update user rewards with a 1s delay
+        setTimeout(async () => {
+          try {
+            await userRef.update({
+              mining_speed_reward: 'claimed',
+              stph: 15
+            });
+          } catch (e) {
+            console.error('Error updating join_rewards with referrer:', e);
+          }
+        }, 1000);
+
+        // 3) Meanwhile, award referrer
+        await updateReferrerPoints(data.referrer_code);
+
+      } else {
+        // No referrer: immediate update
+        await userRef.update({
+          mining_speed_reward: 'claimed',
+          stph: 10
+        });
+      }
+
+      // 4) Optionally start your animation here
+      // startAnimation();
+
+    } catch (error) {
+      console.error('Error fetching or updating user data:', error);
+    }
+  });
+
+    
+    
+   async function updateReferrerPoints(referralCode) {
+  try {
+    const querySnapshot = await db.collection("users")
+      .where("referral_code", "==", referralCode)
+      .limit(1)
+      .get();
+
+    if (!querySnapshot.empty) {
+      const referrerRef = querySnapshot.docs[0].ref;
+      const currentPoints = querySnapshot.docs[0].data().stph || 0;
+      await referrerRef.update({ stph: currentPoints + 1 });
+    }
+  } catch (error) {
+    console.error("Error updating points: ", error);
+  }
+} 
+
+
+// TIMER code
+// Timer function that calculates remaining time and updates the timer-holder div
+let timerInterval;
+function startTimer(endTime) {
+  // Clear any previous timer
+  if (timerInterval) clearInterval(timerInterval);
+
+  function updateTimer() {
+    const now = Date.now();
+    const remaining = endTime - now;
+
+    if (remaining <= 0) {
+      clearInterval(timerInterval);
+      document.getElementById('claim-timer').innerText = "00:00:00";
+      // Optionally, you could display a claim button or take other action here.
+      return;
+    }
+
+    // Calculate hours, minutes, seconds
+    const hours = Math.floor(remaining / (1000 * 60 * 60));
+    const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+
+    // Format the time as hh:mm:ss
+    const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    document.getElementById('claim-timer').innerText = formattedTime;
+  }
+
+  // Run immediately and update every second
+  updateTimer();
+  timerInterval = setInterval(updateTimer, 1000);
+}
+
+// Function to fetch the user's end_mining_time from Firestore and start the timer
+async function updateRemainingTimeDisplay() {
+  try {
+    const userRef = db.collection('users').doc(userId.toString());
+
+            userRef.onSnapshot((doc) => {
+    if (doc.exists) {
+      const endTime = doc.data().end_mining_time;
+      // Ensure we have a valid endTime and it's in the future
+      if (endTime && endTime > Date.now()) {
+        // Make sure the timer-holder is visible
+        document.getElementById('claim-timer').style.display = "flex";
+        startTimer(endTime);
+      } else {
+        // If no active mining session or time is up, show 00:00:00
+        document.getElementById('claim-timer').innerText = "00:00:00";
+      }
+    }
+  })
+  } catch (error) {
+    console.error("Error fetching user's end_mining_time:", error);
+  }
+}
+// Example: Call updateRemainingTimeDisplay() after user data is fetched 
+// or when a mining session is started.
+updateRemainingTimeDisplay();
+
+//CLAIM BUTTON CODE 
+document.getElementById('claim-btn').addEventListener('click', async () => {
+    try {
+      const userDoc = await db.collection('users').doc(userId.toString()).get();
+      const userData = userDoc.data();
+        // Update the Firestore document for the user
+     // show_9222843().then(() => {
+        setTimeout( async function() {
+        await db.collection('users').doc(userId.toString()).update({
+            end_mining_time: 0,
+            secret_token: userData.secret_token + ( userData.stph * 5 )
+        });
+      }, 2000);
+      startClaimAnimation()
+      assetBalanceColorChange()
+// })
+    } catch (error) {
+        console.error('Error starting mining:', error);
+    }
+    
+});
+
+function assetBalanceColorChange(){
+  document.getElementById("asset-balance").style.color = "white"
+      document.getElementById("asset-balance").style.fontWeight = "900"
+    
+    setTimeout( async function() {
+    document.getElementById("asset-balance").style.color = "#bababa"
+      document.getElementById("asset-balance").style.fontWeight = "400"
+    }, 1500);
+}
+
+async function startClaimAnimation() {
+    
+      const userDoc = await db.collection('users').doc(userId.toString()).get();
+      const userData = userDoc.data();
+            const duration = 3000; // 3 seconds
+            const startValue = userData.secret_token;
+            const endValue = userData.secret_token + ( userData.stph * 5 ); // Change this to your target number
+            const startTime = Date.now();
+      
+            function update() {
+                const currentTime = Date.now();
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Update number with easing
+                const currentValue = Math.floor(progress * (endValue - startValue) + startValue);
+                document.getElementById("asset-balance").textContent =
+                currentValue + " SCRT";
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    document.getElementById("asset-balance").textContent =
+                    endValue + " SCRT"; // Ensure final value is exact
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+        
+        
+        
+        // Raffle data
+        const drawRef = db.collection("raffle").doc("draws");
+
+        drawRef.onSnapshot((doc) => {
+            if (doc.exists) {
+                const data = doc.data();
+                const usernamesMap = data.usernames || {}; // Get usernames map, default to empty object
+                const prevAdRev = data.prev_adrev !== undefined ? data.prev_adrev : 0; // Get prev_ad_rev, default to 0
+                const usernameList = Object.values(usernamesMap); // Get username values
+                displayUserList(usernameList, prevAdRev);
+            } else {
+                console.log("Document does not exist!");
+                displayUserList([], 0);
+            }
+        }, (error) => {
+            console.error("Error fetching data: ", error);
+        });
+
+        // Display function
+        function displayUserList(usernameList, prevAdRev) {
+            const ul = document.getElementById("prev-winners");
+            ul.innerHTML = ""; // Clear existing list
+            usernameList.forEach((username) => {
+                const li = document.createElement("div");
+                li.id = "prev-winners-bar"
+                li.innerHTML = `<div>${username}</div><div><img
+                src="https://ton.org/icons/custom/ton_logo.svg"> ${prevAdRev/100}</div>`; 
+                //Display username and prev_ad_rev
+                ul.appendChild(li);
+            });
+        }
+        
+        
+        document.getElementById('invite-btn').addEventListener('click', async () => {
+          document.getElementById("share-cont").style.bottom = "0"
+        })
+        document.getElementById('share-bg').addEventListener('click', async () => {
+          document.getElementById("share-cont").style.bottom = "-105%"
+        })
+        
+        document.getElementById('copy-btn').addEventListener('click', async () => {
+        const userDoc = await db.collection('users').doc(userId.toString()).get();
+      const userData = userDoc.data();
+      const referralLink = `https://t.me/secretoken_bot?startapp=${userData.referral_code}`;
+      
+      navigator.clipboard.writeText(referralLink)
+        .then(() => {
+          
+            popup.classList.add('show');
+          setTimeout(() => {
+              popup.classList.remove('show');
+            }, 2000);
+        })
+        .catch(err => {
+          console.error('Failed to copy: ', err);
+        });
+    });
+    
+    document.getElementById('send-btn').addEventListener('click', async () => {
+      const userDoc = await db.collection('users').doc(userId.toString()).get();
+      const userData = userDoc.data();
+      const referralLink = `https://t.me/secretoken_bot/?startapp=${userData.referral_code}`;
+      tg.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent('Join using my referral link! Get 5,000 Victoreum Points.')}`);
+    });
+        
+          
+          
   </script>
 </body>
 </html>
