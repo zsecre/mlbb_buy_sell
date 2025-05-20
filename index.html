@@ -91,6 +91,7 @@
     color: #363636;
     background: #0000008e;
     backdrop-filter: blur(2px);
+    z-index: 1;
   }
   .nav-btn{
     display: flex;
@@ -174,9 +175,8 @@
     gap: 2px;
   }
   #pickaxe-icon{
-    height: 22px;
-    height: 22px;
-    filter: invert(1);
+    height: 25px;
+    height: 25px;
   }
   #assets-bar{
     display: flex;
@@ -341,8 +341,8 @@
   #claim-btn-2x i{
     color: black;
   }
-  #claim-btn:active, #claim-btn-2x:active{
-    opacity: .5;
+  #claim-btn:hover, #claim-btn-2x:hover{
+    background: black;
     color: white;
   }
   
@@ -354,6 +354,7 @@
     justify-content: center;
     width: 100%;
     transition: .3s;
+    z-index: 15;
   }
   #popup{
     background: rgb(128,128,128 .5);
@@ -363,6 +364,7 @@
     border-radius: 5px;
     transition: .4s;
     border: .01px solid #00000023;
+    z-index: 15;
   }
   
   #mining-speed-reward-cont{
@@ -414,6 +416,7 @@
   }
   #speed-reward-box img{
     height: 25px;
+    filter: invert(1);
   }
   #claim-speed-btn{
     width: 80%;
@@ -433,6 +436,7 @@
     flex-direction: column;
     box-sizing: border-box;
     margin-bottom: 68px;
+    overflow: scroll;
   }
   #ad-revenue-text{
     box-sizing: border-box;
@@ -546,6 +550,7 @@
     height: 440px;
     background: #111111;
     margin: 10px;
+    padding: 8px;
   }
   #invite-btn{
     width: 85%;
@@ -569,14 +574,16 @@
     position: absolute;
     bottom: -105%;
     width: 100%;
-    display: flex;
+    display: none;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    background: #00000057;
+    background: #00000075;
     transition: .3s;
+    box-sizing: border-box;
   }
   #share-bg{
+    box-sizing: border-box;
     height: 25%;
     width: 100%;
     background: ;
@@ -587,7 +594,9 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    border-radius: 10px 10px 0 0;
+    border-radius: 12px 12px 0 0;
+    z-index: 10;
+    box-sizing: border-box;
   }
   #copy-send-btn-cont{
     display: flex;
@@ -619,7 +628,263 @@
     font-weight: 600;
     font-size: 16px;
   }
+  #speed-ref{
+    height: 18px;
+    filter: invert(100%);
+  }
+  #friends-list-cont-outer{
+    padding: 5px 8px;
+    flex-direction: row;
+    align-items: center;
+  }
+  #airdrop-text{
+    font-size: 23px;
+    font-weight: 600;
+  }
+  #airdrop-holder{
+    height: 550px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+  }
+  #eligibility-btn, #roadmap-btn, #faq-btn{
+    width: 75%;
+    font-size: 18px;
+    padding: 7px;
+    border: none;
+    border-radius: 4px;
+    transition: .3s;
+    background: #9cff00;
+  }
+  #eligibility-btn{
+  }
+  #roadmap-btn{
+
+  }
+  #faq-btn{
+  }
+  #eligibility-btn:hover, #roadmap-btn:hover, #faq-btn:hover{
+    background: #121e00;
+  }
+  #token-remaining-cont{
+    height: 80px;
+    width: 270px;
+    margin-bottom: 40px;
+    border: .001px solid #80808010;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  #listing-indicator-img{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+  }
+  #token-indicator-bar-cont{
+    width: 270px;
+    height: 25px;
+    background: #272727;
+  }
+  #token-indicator-bar-cont img{
+    height: 100%;
+    width: 50%;
+    box-shadow:
+      0 -10px 10px -5px rgba(11,255,201,0.324),
+      0 10px 10px -5px rgba(11,255,201,0.324);
+  }
+  #realtime-token-update-text{
+    font-size: 20px;
+    font-weight: 600;
+  }
+  #total-token, #total-mined-token, #total-remaining-token{
+    font-size: 12px;
+  }
+  #mined-token-cube{
+    height: 10px;
+    width: 10px;
+  }
+  #remaining-token-cube{
+    height: 10px;
+    width: 10px;
+    background: #272727;
+    display: inline-block;
+  }
   
+  /*ELIGIBILITY */
+  .checkmark {
+      width: 47px;
+      height: 47px;
+    }
+
+    .check {
+      fill: none;
+      stroke: green;
+      stroke-width: 5;
+      stroke-linecap: round;
+      stroke-dasharray: 42.42;
+      stroke-dashoffset: 42.42;
+      animation: draw 0.5s ease-in-out forwards;
+    }
+
+    @keyframes draw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+    #eligibility-cont{
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      background: #000000c6;
+      backdrop-filter: blur(4px);
+      top: 0;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 0 40px;
+      box-sizing: border-box;
+      text-align-last: center;
+      z-index: 5;
+    }
+    #eligibile-bar{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      background: #47ff091a;
+      border-radius: 4px;
+      padding: 0 25px 0 20px;
+      font-size: 22px;
+      font-weight: 600;
+      margin-top: 12px;
+      border: .001px dashed #58ff0095;
+    }
+    #eligibility-text{
+      text-align: center;
+    }
+    #close-eligibility-cont{
+      position: absolute;
+      top: 12px;
+      left: 10px;
+      font-size: 19px;
+    }
+    
+  /*ROADMAP*/
+  .fa-beat{
+    color: #44e900;
+    font-size: 20px;
+  }
+  #not-check{
+    font-size: 20px;
+    color: #e96100;
+  }
+    #roadmap-cont{
+      display: none;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      background: #000000d9;
+      backdrop-filter: blur(4px);
+      top: 0;
+      align-items: center;
+      flex-direction: column;
+      padding: 100px 40px;
+      box-sizing: border-box;
+      text-align-last: center;
+      z-index: 5;
+    }
+    #roadmap-text{
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 28px;
+    }
+    #close-roadmap-cont{
+      position: absolute;
+      top: 12px;
+      left: 10px;
+      font-size: 19px;
+    }
+    #roadmap{
+      display: flex;
+      align-items: start;
+      flex-direction: column;
+      padding: 0 20px;
+      gap: 40px;
+      font-size: 12px;
+      position: relative;
+      background: #272727;
+      padding: 20px;
+    }
+    #roadmap-list{
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      align-items: center;
+      z-index: 2;
+    }
+    #ninety-mined{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    #roadmap-line{
+      height: 265px;
+      width: .1px;
+      background: white;
+      position: absolute;
+      left: 30px;
+      top: 23px;
+    }
+    #roadmap-line-2{
+      width: 100%;
+      height: 78px;
+      background: #44e900;
+    }
+    
+    #faq-cont{
+      position: absolute;
+      top: 0;
+      padding: 65px 25px;
+      background: #000000d9;
+      backdrop-filter: blur(4px);
+      z-index: 5;
+      display: none;
+    }
+    h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 22px;
+            font-weight: 600;
+        }
+        .faq-section {
+            background-color: #151515;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        .faq-question {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .faq-answer {
+            margin-left: 30px;
+        }
+    #close-faq-cont{
+      position: absolute;
+      top: 12px;
+      left: 10px;
+      font-size: 19px;
+    }
+    
+    
 </style>
 </head>
 <body>
@@ -715,8 +980,125 @@
   </div>
   
   <div class="content-cont">
-    airdrop
+    <div id="airdrop-holder">
+      <div id="realtime-token-update-text">
+        Realtime Token Update
+      </div>
+      <div id="total-token">
+        Total token: 100,000,000
+      </div>
+      <div id="total-mined-token">
+        <img id="mined-token-cube" src="token-indicator-bar.gif">
+        Mined tokens:
+      </div>
+      <div id="total-remaining-token">
+        <div id="remaining-token-cube"></div>
+        Remaining tokens:
+      </div>
+      
+      <div id="token-remaining-cont">
+        <div id="token-indicator-bar-cont">
+          <img id="token-indicator-bar" src="token-indicator-bar.gif">
+        </div>
+        <img id="listing-indicator-img" src="listing-indicator.png">
+        
+      </div>
+      <div id="airdrop-text">Airdrop</div>
+      <button id="eligibility-btn">Eligibility</button>
+      <button id="roadmap-btn">Roadmap</button>
+      <button id="faq-btn">FAQ</button>
+    </div>
+    <div id="eligibility-cont">
+      <div id="close-eligibility-cont">Close</div>
+      <div id="eligibility-text">
+      Congratulations! You're eligible for the airdrop.
+      </div>
+      <div id="eligibile-bar">
+        <svg class="checkmark" viewBox="0 0 50 50">
+    <path class="check" d="M10 25 L20 35 L40 15" />
+  </svg>Eligible
+      </div>
+    </div>
+    
+    <div id="roadmap-cont">
+      <div id="close-roadmap-cont">Close</div>
+      <div id="roadmap-text">
+        Roadmap
+      </div>
+      <div id="roadmap">
+        <div id="roadmap-list">
+          <i class="fa-solid fa-circle-check fa-beat"></i>
+          •Secret Token Drop Mini App Launch
+        </div>
+        <div id="roadmap-list">
+          <i class="fa-solid fa-circle-check fa-beat"></i>
+          <div>
+          •Mining Phase
+          </div>
+        </div>
+        <div id="roadmap-list">
+          <i class="fa-solid fa-circle-check" id="not-check"></i>
+          <div id="ninety-mined">
+          <div>
+          •90% or 90,000,000 Tokens mined = Listing / TGE (Any date)
+          </div>
+          <div>
+          •Secrets of DarkField MMORPG P2E Game Announcement / Pre-register available
+          </div>
+          </div>
+        </div>
+        <div id="roadmap-list">
+          <i class="fa-solid fa-circle-check" id="not-check"></i>
+          <div>
+          •Successful Airdrop = Secrets of DarkField Game Global Release
+          </div>
+        </div>
+        <div id="roadmap-line">
+          <div id="roadmap-line-2">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="faq-cont">
+      <div id="close-faq-cont">Close</div>
+      <h1>Secret Token Drop FAQ</h1>
+    <div class="faq-section">
+        <div class="faq-question">What is Secret Token Drop?</div>
+        <div class="faq-answer">Secret Token Drop is a Telegram mini app where users can mine Secret Tokens by pressing the "Start Mine" button after connecting their wallet. It also features a weekly raffle and a referral system to boost mining speed.</div>
+    </div>
+    <div class="faq-section">
+        <div class="faq-question">How do I start mining Secret Tokens?</div>
+        <div class="faq-answer">To start mining, connect your cryptocurrency wallet in the Secret Token Drop mini app, then press the "Start Mine" button to begin earning Secret Tokens.</div>
+    </div>
+    <div class="faq-section">
+        <div class="faq-question">What is the weekly raffle?</div>
+        <div class="faq-answer">Each week, 100 winners are selected in a raffle to share the total weekly ad revenue generated by the Secret Token Drop mini app. Participation details are available in the app.</div>
+    </div>
+    <div class="faq-section">
+        <div class="faq-question">How can I increase my mining speed?</div>
+        <div class="faq-answer">You can increase your mining speed by referring
+        friends to join Secret Token Drop. Each successful referral boosts your
+        mining speed.</div>
+    </div>
+    <div class="faq-section">
+        <div class="faq-question">What is the airdrop ratio for Secret Tokens?</div>
+        <div class="faq-answer">The airdrop ratio is 1:1, meaning the Secret Tokens you mine in the app will have a direct 1:1 value when they are officially listed.</div>
+    </div>
+    <div class="faq-section">
+        <div class="faq-question">When will Secret Tokens be listed?</div>
+        <div class="faq-answer">Secret Tokens will be listed once the total
+        tokens mined reach 90% or more of the planned supply. It may happen in any
+        date as long as it reached the 90% total mined tokens.</div>
+    </div>
+    <div class="faq-section">
+        <div class="faq-question">What is Secrets of DarkField?</div>
+        <div class="faq-answer">Secrets of DarkField is a new MMORPG P2E game related to Secret Token Drop, offering additional ways to engage with the Secret Token ecosystem. More details will be shared soon.</div>
+    </div>
+    </div>
   </div>
+  
+  
 
   <div id="bot-bar">
     <div id="home-btn" class="nav-btn" data-active-icon="fa-solid fa-house">
@@ -1232,7 +1614,7 @@ document.getElementById('claim-speed-btn')
     if (!querySnapshot.empty) {
       const referrerRef = querySnapshot.docs[0].ref;
       const currentPoints = querySnapshot.docs[0].data().stph || 0;
-      await referrerRef.update({ stph: currentPoints + 1 });
+      await referrerRef.update({ stph: currentPoints + 2 });
     }
   } catch (error) {
     console.error("Error updating points: ", error);
@@ -1398,10 +1780,22 @@ async function startClaimAnimation() {
         
         
         document.getElementById('invite-btn').addEventListener('click', async () => {
+          document.getElementById("share-cont").style.display = "flex"
+          setTimeout( async function() {
           document.getElementById("share-cont").style.bottom = "0"
+          }, 300);
         })
         document.getElementById('share-bg').addEventListener('click', async () => {
           document.getElementById("share-cont").style.bottom = "-105%"
+          setTimeout( async function() {
+          document.getElementById("share-cont").style.display = "none"
+          }, 300);
+        })
+        document.getElementById('bot-bar').addEventListener('click', async () => {
+          document.getElementById("share-cont").style.display = "none"
+          setTimeout( async function() {
+          document.getElementById("share-cont").style.bottom = "-105%"
+          }, 300);
         })
         
         document.getElementById('copy-btn').addEventListener('click', async () => {
@@ -1417,19 +1811,108 @@ async function startClaimAnimation() {
               popup.classList.remove('show');
             }, 2000);
         })
+        
         .catch(err => {
           console.error('Failed to copy: ', err);
         });
+        document.getElementById("popup-cont").style.top = "60px"
+    document.getElementById("popup").style.background = "rgba(62,97,136,0.3)"
+    setTimeout( async function() {
+    document.getElementById("popup").style.background = "gray"
+      document.getElementById("popup-cont").style.top = "-44px"
+    }, 2000);
+    document.getElementById("popup").textContent = "Link copied!"
+    navigator.vibrate(200);
     });
     
     document.getElementById('send-btn').addEventListener('click', async () => {
       const userDoc = await db.collection('users').doc(userId.toString()).get();
       const userData = userDoc.data();
       const referralLink = `https://t.me/secretoken_bot/?startapp=${userData.referral_code}`;
-      tg.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent('Join using my referral link! Get 5,000 Victoreum Points.')}`);
+      tg.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent('Join using my referral link! Get additional 5 $SECRET token per hour mining speed.')}`);
     });
-        
+    
+    //DISPLAY FRIENDS
+    async function displayUsernamesForCurrentUser(userId) {
+  const container = document.getElementById("friends-list-cont");
+  try {
+    const userDoc = await db.collection('users').doc(userId.toString()).get();
+    const userData = userDoc.data();
+    const referralCode = userData.referral_code;
+
+    const querySnapshot = await db.collection("users")
+      .where("referrer_code", "==", referralCode)
+      .get();
+
+    querySnapshot.forEach((doc) => {
+      const username = doc.data().username;
+      const outerDiv = document.createElement("div");
+      const innerDiv = document.createElement("div");
+      const innerDiv2 = document.createElement("div");
+      outerDiv.style.display = "flex"
+      outerDiv.id = "friends-list-cont-outer"
+      outerDiv.style.justifyContent = "space-between"
+      innerDiv.textContent = username;
+      innerDiv2.innerHTML = `<img id="speed-ref" src="pickaxe-speed.png">+2/h`;
+      outerDiv.appendChild(innerDiv);
+      outerDiv.appendChild(innerDiv2);
+      container.appendChild(outerDiv);
+    });
+  } catch (error) {
+    console.error("Error: ", error);
+  }
+}
+
+const currentUserId = userId; // Replace with actual userId
+displayUsernamesForCurrentUser(currentUserId);
           
+          
+          //Sercret token all
+      // Function to calculate and update the sum
+function updateSum(snapshot) {
+  let total = 0;
+  snapshot.forEach((doc) => {
+    const data = doc.data();
+    if (typeof data.secret_token === 'number') {
+      total += data.secret_token;
+    }
+  });
+  // Update the page with the new total
+  document.getElementById("total-remaining-token").innerHTML = `<div
+  id="remaining-token-cube"></div> Remaining
+  tokens: ${(100000000-total).toLocaleString('en-US')}`;
+  document.getElementById("total-mined-token").innerHTML = `<img
+  id="mined-token-cube" src="token-indicator-bar.gif"> Mined tokens:
+  ${total.toLocaleString('en-US')}`;
+  document.getElementById("token-indicator-bar").style.width =
+  `${(total/100000000)*100}%`;
+}
+
+// Set up the real-time listener on the 'users' collection
+db.collection('users').onSnapshot(updateSum, (error) => {
+  console.error("Error listening to updates:", error);
+});
+
+    document.getElementById('close-eligibility-cont').addEventListener('click', async () => {
+      document.getElementById('eligibility-cont').style.display = "none"
+    });
+    document.getElementById('eligibility-btn').addEventListener('click', async () => {
+      document.getElementById('eligibility-cont').style.display = "flex"
+    });
+    
+    document.getElementById('close-roadmap-cont').addEventListener('click', async () => {
+      document.getElementById('roadmap-cont').style.display = "none"
+    });
+    document.getElementById('roadmap-btn').addEventListener('click', async () => {
+      document.getElementById('roadmap-cont').style.display = "flex"
+    });
+    
+    document.getElementById('close-faq-cont').addEventListener('click', async () => {
+      document.getElementById('faq-cont').style.display = "none"
+    });
+    document.getElementById('faq-btn').addEventListener('click', async () => {
+      document.getElementById('faq-cont').style.display = "block"
+    });
           
   </script>
 </body>
