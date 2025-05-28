@@ -329,7 +329,11 @@
     border-radius: 40px;
     transition: .3s;
   }
-  #start-btn:hover, #connect-tostart-btn:active{
+  #start-btn:hover{
+    background: black;
+    color: white;
+  }
+  #connect-tostart-btn:active{
     background: black;
     color: white;
   }
@@ -1187,10 +1191,10 @@ data-sdk='show_9389132'></script>
       </div>
       <div id="speed-reward-cont">
       <div id="speed-reward-box">
-        <img src="pickaxe-speed.png">+10
+        <img src="pickaxe-speed.png">+2
       </div>
       <div id="speed-reward-box" class="reward-from-friend">
-        <img src="pickaxe-speed.png">+5
+        <img src="pickaxe-speed.png">+1
       </div>
       </div>
       <button id="claim-speed-btn">Claim</button>
@@ -1618,7 +1622,7 @@ document.getElementById('claim-speed-btn')
           try {
             await userRef.update({
               mining_speed_reward: 'claimed',
-              stph: 15
+              stph: 3
             });
           } catch (e) {
             console.error('Error updating join_rewards with referrer:', e);
@@ -1632,7 +1636,7 @@ document.getElementById('claim-speed-btn')
         // No referrer: immediate update
         await userRef.update({
           mining_speed_reward: 'claimed',
-          stph: 10
+          stph: 2
         });
       }
 
@@ -1656,7 +1660,7 @@ document.getElementById('claim-speed-btn')
     if (!querySnapshot.empty) {
       const referrerRef = querySnapshot.docs[0].ref;
       const currentPoints = querySnapshot.docs[0].data().stph || 0;
-      await referrerRef.update({ stph: currentPoints + 2 });
+      await referrerRef.update({ stph: currentPoints + 1 });
     }
   } catch (error) {
     console.error("Error updating points: ", error);
