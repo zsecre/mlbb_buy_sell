@@ -136,8 +136,17 @@
   #profile-pic{
     height: 40px;
     width: 40px;
-    border: .1px solid white;
+    
     border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    font-weight: 600;
+    color: white;
+    background: #0dffbd;
+    text-shadow: 1px 1px #0228ff;
+    
   }
   
   /*Wallet Connect*/
@@ -904,7 +913,7 @@
 <body>
   <!-- Header -->
   <div id="top-bar">
-    <img src="" id="profile-pic" alt="User Pic">
+    <div id="profile-pic"></div>
   </div>
 
   <div id="home-bar" class="content-cont">
@@ -1212,14 +1221,16 @@ src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></s
     tg.expand();
     
     const initData = tg.initDataUnsafe;
-    const username = 'test'
+    const username = 'zsecre'
     const userId = '12345'
    // const userId =   initData.user?.id;
    // const username =  initData.user?.first_name;
 
     // Set user info (optional)
-    const profilePic = initData.user?.photo_url;
+  /*  const profilePic = initData.user?.photo_url;
     if (profilePic) document.getElementById('profile-pic').src = profilePic;
+    */
+    document.getElementById("profile-pic").textContent = username[0].toUpperCase()
     
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -1480,6 +1491,7 @@ function showClaimSpeed(){
                 document.getElementById("energey-cont").innerHTML = `<img
                 src="pickaxe-speed.png" id="pickaxe-icon">
         ` + doc.data().stph + "/h"
+                
                 document.getElementById("asset-balance").textContent =
                 doc.data().secret_token + " SCRT"
                 
