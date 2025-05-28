@@ -1012,7 +1012,7 @@
         Realtime Token Update
       </div>
       <div id="total-token">
-        Total token: 100,000,000
+        Total token: 350,000,000
       </div>
       <div id="total-mined-token">
         <img id="mined-token-cube" src="token-indicator-bar.gif">
@@ -1930,12 +1930,12 @@ function updateSum(snapshot) {
   // Update the page with the new total
   document.getElementById("total-remaining-token").innerHTML = `<div
   id="remaining-token-cube"></div> Remaining
-  tokens: ${(100000000-total).toLocaleString('en-US')}`;
+  tokens: ${(350000000-total).toLocaleString('en-US')}`;
   document.getElementById("total-mined-token").innerHTML = `<img
   id="mined-token-cube" src="token-indicator-bar.gif"> Mined tokens:
   ${total.toLocaleString('en-US')}`;
   document.getElementById("token-indicator-bar").style.width =
-  `${(total/100000000)*100}%`;
+  `${(total/350000000)*100}%`;
 }
 
 // Set up the real-time listener on the 'users' collection
