@@ -1734,7 +1734,7 @@ document.getElementById('claim-btn-2x').addEventListener('click', async () => {
         setTimeout( async function() {
         await db.collection('users').doc(userId.toString()).update({
             end_mining_time: 0,
-            secret_token: userData.secret_token + ( userData.stph * 5 )
+            secret_token: userData.secret_token + ( userData.stph * 10 )
         });
       }, 2000);
       startClaimAnimation()
