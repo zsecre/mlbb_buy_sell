@@ -26,6 +26,9 @@
     font-weight: 500;
     color: white;
   }
+  img{
+   pointer-events: none;
+    }
   #join-cont{
     position: absolute;
     background: black;
@@ -41,11 +44,18 @@
     z-index: 4;
   }
   #welcome-msg{
+    box-sizing: border-box;
     padding: 0 30px;
-    text-align: center;
     height: 50%;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
+    gap: 10px;
+    
+  }
+  #welcome-msg img{
+    height: 75px;
   }
   #join-btn{
     padding: 14px 27px;
@@ -176,7 +186,7 @@
   }
   #pickaxe-icon{
     height: 25px;
-    height: 25px;
+    width: 25px;
   }
   #assets-bar{
     display: flex;
@@ -236,21 +246,25 @@
     z-index: 5;
   }
   #loading-cont img{
-    height: 95px;
-    width: 95px;
-    animation: spin 3s;
+    height: 120px;
+     width: 120px;
+    
+    animation: logo 3.5s;
     animation-timing-function:ease-out
     animation-fill-mode: forwards;
       filter: invert(0%);
   }
-  @keyframes spin { 
+  @keyframes logo { 
     0%{
-      filter: invert(100%);
+      opacity: 0;
+      height: 80px;
+    width: 80px;
     }
     100% { 
-        -webkit-transform: rotate(-10800deg); 
-        transform:rotate(-10800deg); 
-       filter: invert(0%);
+      opacity: 1;
+      
+      height: 110px;
+     width: 110px;
     } 
 }
   
@@ -305,8 +319,8 @@
     border-radius: 40px;
     transition: .3s;
   }
-  #start-btn:active, #connect-tostart-btn:active{
-    opacity: .5;
+  #start-btn:hover, #connect-tostart-btn:active{
+    background: black;
     color: white;
   }
   #timer{
@@ -629,14 +643,14 @@
     font-size: 16px;
   }
   #speed-ref{
-    height: 18px;
-    filter: invert(100%);
+    height: 24px;
   }
   #friends-list-cont-outer{
     padding: 5px 8px;
     flex-direction: row;
     align-items: center;
   }
+  
   #airdrop-text{
     font-size: 23px;
     font-weight: 600;
@@ -906,12 +920,10 @@
         Assets
       </div>
       <div id="energey-cont">
-        <img src="pickaxe-speed.png">
-        0/h
         </div>
       <div id="assets-bar">
         <div id="asset">
-          <img src="token.png" alt="Secret Token">
+          <img src="logo.png" alt="Secret Token">
           <div id="asset-name-balance">
             <div id="asset-name">Secret</div>
             <div id="asset-balance">0 SCRT</div>
@@ -956,7 +968,7 @@
       <div id="ad-revenue">
         0 <img src="https://ton.org/icons/custom/ton_logo.svg"> TON
       </div>
-      <div id="" style="font-size: 12px; margin-top: 5px">
+      <div id="next-draw-date" style="font-size: 12px; margin-top: 5px">
         Next draw May 18 2025
       </div>
       <div id="see-prev-winners"></div>
@@ -1043,14 +1055,14 @@
           •90% or 90,000,000 Tokens mined = Listing / TGE (Any date)
           </div>
           <div>
-          •Secrets of DarkField MMORPG P2E Game Announcement / Pre-register available
+          •Secrets of Krazofield MMORPG P2E Game Announcement / Pre-register available
           </div>
           </div>
         </div>
         <div id="roadmap-list">
           <i class="fa-solid fa-circle-check" id="not-check"></i>
           <div>
-          •Successful Airdrop = Secrets of DarkField Game Global Release
+          •Successful Airdrop = Secrets of Krazofield Game Global Release
           </div>
         </div>
         <div id="roadmap-line">
@@ -1092,8 +1104,9 @@
         date as long as it reached the 90% total mined tokens.</div>
     </div>
     <div class="faq-section">
-        <div class="faq-question">What is Secrets of DarkField?</div>
-        <div class="faq-answer">Secrets of DarkField is a new MMORPG P2E game related to Secret Token Drop, offering additional ways to engage with the Secret Token ecosystem. More details will be shared soon.</div>
+        <div class="faq-question">What is Secrets of
+        Krazofield?</div>
+        <div class="faq-answer">Secrets of Krazofield is a new MMORPG P2E game related to Secret Token Drop, offering additional ways to engage with the Secret Token ecosystem. More details will be shared soon.</div>
     </div>
     </div>
   </div>
@@ -1126,15 +1139,16 @@
   
   <div id="loading-cont">
     <img src="logo.png">
-    Loading...
   </div>
   <div id="popup-cont">
     <div id="popup">Pop-up</div>
   </div>
   <div id="join-cont">
     <div id="welcome-msg">
-    Oh! It looks like you found something in secret. Welcome to Secret Token
-    airdrop. Join secretly and surprise everyone.
+   <img src="logo.png" >
+    <div>Secret Launch</div>
+    <div>Secret Mining</div>
+    <div>Secret Success</div>
     </div>
     <button id="join-btn">
       Continue
@@ -1309,7 +1323,7 @@ document.addEventListener('DOMContentLoaded', () => {
   //LOADING cont
   setTimeout( async function() {
     document.getElementById("loading-cont").style.display = "none"
-  }, 3000);
+  }, 4000);
   
   // nav button bottom
 
@@ -1523,6 +1537,8 @@ function showClaimSpeed(){
              document.getElementById("ad-revenue").innerHTML =
              `${doc.data().current_adrev} <img
              src="https://ton.org/icons/custom/ton_logo.svg"> TON`
+             document.getElementById("next-draw-date").textContent ="Next draw: "
+             + doc.data().next_draw_date
              document.getElementById("raffle-text").textContent = `This week's
              ad revenue (${doc.data().current_date_1} - ${doc.data().current_date_7}):`
                 document.getElementById("see-prev-winners").textContent =
