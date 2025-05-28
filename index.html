@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1
+  user-scalable=no">
   <title>Secret Token Drop</title>
   <link rel="stylesheet" href="style.css">
   <!-- TonConnect SDK -->
@@ -461,6 +462,10 @@
     margin-bottom: 68px;
     overflow: scroll;
     padding-top: 30px;
+  }
+  #raffle-hidden{
+    padding: 30px;
+    text-align: center;
   }
   #ad-revenue-text{
     box-sizing: border-box;
@@ -1792,6 +1797,22 @@ async function startClaimAnimation() {
         }, (error) => {
             console.error("Error fetching data: ", error);
         });
+        // Get the current date and time
+const now = new Date();
+
+// Check if today is Saturday in UTC (0 = Sunday, 6 = Saturday)
+if (now.getUTCDay() === 6) {
+    // Get the current UTC time as a readable string
+    const utcTime = now.toUTCString();
+    console.log("It's Saturday in UTC. Current UTC time: " + utcTime);
+    // Place your code here to execute when it's Saturday in UTC
+    document.getElementById("raffle-cont").innerHTML = `<div
+    id="raffle-hidden">
+    Raffle Draw is ongoing. Please comeback later.
+    </div>`
+} else {
+    console.log("It's not Saturday in UTC.");
+}
 
         // Display function
         function displayUserList(usernameList, prevAdRev) {
